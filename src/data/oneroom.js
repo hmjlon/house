@@ -18,7 +18,7 @@ const data = [{
     id : 2,
     title: "Geumsan Apartment Flat",
     image: "./images/room2.jpg",
-    type: "One Room",
+    type: "OneRoom",
     content: "금산오거리 역세권 아파트입니다. 애완동물 불가능 ?",
     price: 780000
     },
@@ -26,7 +26,7 @@ const data = [{
     id : 3,
     title: "Double styled beds Studio Apt",
     image: "./images/room3.jpg",
-    type: "One Room",
+    type: "OneRoom",
     content: "무암동인근 2인용 원룸입니다. 전세 전환가능",
     price: 550000
     },

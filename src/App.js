@@ -92,6 +92,8 @@ function App(){
               setUsers={setUsers}
         />} />
         <Route path="/apt" element={<Apt roomsInfo={roomsInfo}></Apt>}></Route>
+        <Route path="/oroom" element={<Oroom roomsInfo={roomsInfo}></Oroom>}></Route>
+        <Route path="/villa" element={<Villa roomsInfo={roomsInfo}></Villa>}></Route>
         <Route path="*" element={
           <div>
             <h4>

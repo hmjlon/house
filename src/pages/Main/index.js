@@ -18,12 +18,12 @@ function Main () {
               Apartment
             </Nav.Link>
             <Nav.Link onClick={()=>{
-              navigate("/browse")
+              navigate("/oroom")
             }}>
               One Room
           </Nav.Link>
           <Nav.Link onClick={()=>{
-              navigate("/browse")
+              navigate("/villa")
             }}>
               Villa
           </Nav.Link>

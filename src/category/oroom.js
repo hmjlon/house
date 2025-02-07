@@ -1,11 +1,11 @@
 function Oroom(props){
-  let apartment = props.roomsInfo;
-  console.log(apartment);
+  let oroom = props.roomsInfo;
+  console.log(oroom);
   return(
     <div>
       {
-        apartment.map((x,i)=>{
-          if(x.type === "Apartment"){
+        oroom.map((x,i)=>{
+          if(x.type === "OneRoom"){
             return(
               <div key={i}>
                 <img src={x.image} width="100px" height="100px"></img>

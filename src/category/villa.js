@@ -1,11 +1,11 @@
 function Villa(props){
-  let apartment = props.roomsInfo;
-  console.log(apartment);
+  let villa = props.roomsInfo;
+  console.log(villa);
   return(
     <div>
       {
-        apartment.map((x,i)=>{
-          if(x.type === "Apartment"){
+        villa.map((x,i)=>{
+          if(x.type === "Villa"){
             return(
               <div key={i}>
                 <img src={x.image} width="100px" height="100px"></img>
