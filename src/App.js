@@ -1,78 +1,109 @@
-import React, { useState } from 'react';
-import './App.css';
+import "./App.css";
+import { useState, useEffect } from "react";
+import roomsData from "./data/oneroom";
+import Container from "react-bootstrap/Container";
+import Nav from "react-bootstrap/Nav";
+import Navbar from "react-bootstrap/Navbar";
+import { Routes, Route, useNavigate, Navigate, Link } from "react-router-dom";
+import SignUp from "./pages/Signup";
+import Login from "./pages/Login/";
+import Listing from "./pages/Listing";
+import Main from "./pages/Main";
+import Apt from "./category/apt"
+import Villa from "./category/villa"
+import Oroom from "./category/oroom"
 
-function App() {
-  // 데이터 선언
-  const menus = ['Home', 'Shop', 'About'];
-  const prices = [50, 55, 70];
-  const products = ['역삼동원룸', '천호동원룸', '마포구원룸'];
-  const content = [
-    '침실만 따로 있는 공용 셰어하우스입니다. 최대 2인 가능',
-    '2층 원룸입니다. 비올 때 물 가끔 들어오는거 빼면 좋아요',
-    '살기 좋아요. 주변에 편의점 10개 넘어요.',
-  ];
+function App(){
+  const [users, setUsers] = useState([]);
+  const [currentUser, setCurrentUser] = useState(null);
+  const [menu, setMenu] = useState(["Home", "Shop", "About"]);
+  const [roomsInfo, setRoomsInfo] = useState(roomsData);
+  const [login, setLogin] = useState(false);
 
-  // 신고 횟수 state
-  const [reportCount, setReportCount] = useState([0, 0, 0]);
-  // 모달 상태 관리
-  const [modal, setModal] = useState(false);
-  const [currentContent, setCurrentContent] = useState('');
+  let navigate = useNavigate();
 
-  // 신고 증가 함수
-  const handleReport = (index) => {
-    const newReportCount = [...reportCount];
-    newReportCount[index] += 1;
-    setReportCount(newReportCount);
+  useEffect(() => {
+    const storedUsers = JSON.parse(localStorage.getItem("user")) || [];
+    setUsers(storedUsers);
+  }, []);
+
+  const handleLogin = (user) => {
+    setCurrentUser(user);
+    setLogin(true);
   };
 
-  // 모달 열기 함수
-  const handleModal = (index) => {
-    setCurrentContent(content[index]);
-    setModal(true);
-  };
-
-  // 모달 닫기 함수
-  const closeModal = () => {
-    setModal(false);
-    setCurrentContent('');
+  const handleLogout = () => {
+    setCurrentUser(null);
+    setLogin(false);
   };
 
   return (
     <div className="App">
-      <nav className="menu">
-        {menus.map((menu, index) => (
-          <span key={index} className="menu-item">
-            {menu}
-          </span>
-        ))}
-      </nav>
-
-      <div className="list-container">
-        {products.map((product, index) => (
-          <div key={index} className="list">
-            <h4 onClick={() => handleModal(index)} className="title">
-              {product}
+      <Navbar bg="dark" data-bs-theme="dark">
+        <Container>
+          <Nav className="me-auto">
+          <Nav.Link onClick={()=>{
+              navigate("/main")
+            }}>
+              Main
+            </Nav.Link>
+            <Nav.Link onClick={()=>{
+              console.log(roomsInfo);
+              navigate("/browse")
+            }}>
+              Browse
+            </Nav.Link>
+            {!login ? (
+              <div className="d-flex gap-2">
+                <Nav.Link onClick={()=>{
+                  navigate("/login")
+                }}>
+                  로그인
+                </Nav.Link>
+                <Nav.Link onClick={()=>{
+                  navigate("/signup")
+                }}>
+                  회원가입
+                </Nav.Link>
+              </div>
+          ) : (
+            <Nav.Link onClick={handleLogout}>
+              로그아옷
+            </Nav.Link>
+          )}
+          </Nav>
+        </Container>
+      </Navbar>
+      {/* 라우터 처리 */}
+      <Routes>
+        <Route path="/" element={<Navigate to="/main" />} />
+        <Route path="/main" element={<Main/>}/>
+        <Route path="/browse" element={<Listing
+              roomsInfo={roomsInfo}
+              setRoomsInfo = {setRoomsInfo}
+              />}
+        />
+        <Route path="/login" element={<Login
+              users={users}
+              onLogin={handleLogin}
+        />} />
+        <Route path="/signup" element={<SignUp
+              users={users}
+              setUsers={setUsers}
+        />} />
+        <Route path="/apt" element={<Apt roomsInfo={roomsInfo}></Apt>}></Route>
+        <Route path="*" element={
+          <div>
+            <h4>
+              404. That’s an error.
             </h4>
-            <p>가격: {prices[index]}만 원</p>
             <p>
-              ☎ 허위매물 신고: {reportCount[index]}{' '}
-              <button onClick={() => handleReport(index)}>신고하기</button>
+              The requested URL /fdjsalflsadjfldsa was not found on this server. That’s all we know.
             </p>
           </div>
-        ))}
-      </div>
-
-      {/* 모달 창 */}
-      {modal && (
-        <div className="modal">
-          <div className="modal-content">
-            <p>{currentContent}</p>
-            <button onClick={closeModal}>닫기</button>
-          </div>
-        </div>
-      )}
+        } />
+      </Routes>
     </div>
-  );
+  )
 }
-
 export default App;

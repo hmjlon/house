@@ -1,5 +1,5 @@
-# Created by https://www.toptal.com/developers/gitignore/api/react,windows,visualstudiocode
-# Edit at https://www.toptal.com/developers/gitignore?templates=react,windows,visualstudiocode
+# Created by https://www.toptal.com/developers/gitignore/api/windows,react,visualstudiocode
+# Edit at https://www.toptal.com/developers/gitignore?templates=windows,react,visualstudiocode
 
 ### react ###
 .DS_*
@@ -62,4 +62,4 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
-# End of https://www.toptal.com/developers/gitignore/api/react,windows,visualstudiocode
+# End of https://www.toptal.com/developers/gitignore/api/windows,react,visualstudiocode
